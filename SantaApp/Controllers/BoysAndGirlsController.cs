@@ -24,20 +24,6 @@ namespace SantaApp.Controllers
             return _mapper.Map<VerdictDto>(model);
         }
 
-        [HttpGet("test")]
-        public string Test()
-        {
-            var dto = new VerdictModel
-            {
-                Fio = "1 2 3",
-                Age = 111,
-                Verdict = VerdictEnum.Bad
-            };
-            _appContext.Verdict.Add(dto);
-            _appContext.SaveChanges();
-            return "Ok";
-        }
-        
         [HttpGet("fake")]
         public string GenerateFakeValues()
         {
