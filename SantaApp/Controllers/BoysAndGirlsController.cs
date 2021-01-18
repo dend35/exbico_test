@@ -1,26 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using API.Core;
+using API.Core.DAL;
+using Common.Enum;
+using DTO.Verdict;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace SantaApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BoysAndGirlsController : ControllerBase
+    public class BoysAndGirlsController : BaseController
     {
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public BoysAndGirlsController(IAppContext appContext) : base(appContext)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-                {
-                    Date = DateTime.Now.AddDays(index),
-                    TemperatureC = rng.Next(-20, 55),
-                })
-                .ToArray();
+        }
+
+        [HttpGet]
+        public VerdictDto Get(string fio, int age)
+        {
+            return new VerdictDto();
+        }
+
+        [HttpGet]
+        public void Test()
+        {
+            var dto = new VerdictModel
+            {
+                Fio = "1 2 3",
+                Age = 111,
+                Verdict = VerdictEnum.Bad
+            };
+            _appContext.Verdict.Add(dto);
+            _appContext.SaveChanges();
         }
     }
 }

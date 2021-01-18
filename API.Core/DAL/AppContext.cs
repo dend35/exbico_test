@@ -5,10 +5,10 @@ using Microsoft.Extensions.Options;
 
 namespace API.Core.DAL
 {
-    public sealed class AppContext : DbContext
+    public sealed class AppContext : DbContext, IAppContext
     {
         private readonly string _connectionString;
-        public DbSet<VerdictModel> Users { get; set; }
+        public DbSet<VerdictModel> Verdict { get; set; }
         
         public AppContext(IOptions<DbOptions> options)
         {
