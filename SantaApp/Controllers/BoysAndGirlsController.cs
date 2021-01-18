@@ -1,9 +1,11 @@
-﻿using API.Core;
+﻿using System.Threading.Tasks;
+using API.Core;
 using API.Core.DAL;
+using AutoMapper;
 using Common.Enum;
 using DTO.Verdict;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace SantaApp.Controllers
 {
@@ -11,14 +13,15 @@ namespace SantaApp.Controllers
     [Route("api/[controller]")]
     public class BoysAndGirlsController : BaseController
     {
-        public BoysAndGirlsController(IAppContext appContext) : base(appContext)
+        public BoysAndGirlsController(IAppContext appContext, IMapper mapper) : base(appContext, mapper)
         {
         }
 
         [HttpGet]
-        public VerdictDto Get(string fio, int age)
+        public async Task<VerdictDto> Get(string fio, int age)
         {
-            return new VerdictDto();
+            var model = await _appContext.Verdict.FirstOrDefaultAsync(i=> i.Fio == fio && i.Age == age);
+            return _mapper.Map<VerdictDto>(model);
         }
 
         [HttpGet("test")]
@@ -51,5 +54,7 @@ namespace SantaApp.Controllers
             _appContext.SaveChanges();
             return "Ok";
         }
+
+        
     }
 }

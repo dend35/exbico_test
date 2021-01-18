@@ -1,5 +1,7 @@
+using System.Reflection;
 using API.Core.Config;
 using API.Core.DAL;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +27,7 @@ namespace SantaApp
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "SantaApp", Version = "v1"}); });
             services.Configure<DbOptions>(Configuration.GetSection("DB"));
             services.AddScoped<IAppContext, AppContext>();
+            services.AddAutoMapper(Assembly.Load("API.Core"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
