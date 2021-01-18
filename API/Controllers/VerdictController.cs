@@ -12,9 +12,9 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WeatherForecastController : BaseController
+    public class VerdictController : BaseController
     {
-        public WeatherForecastController(IAppContext appContext, IMapper mapper) : base(appContext, mapper)
+        public VerdictController(IAppContext appContext, IMapper mapper) : base(appContext, mapper)
         {
         }
 
