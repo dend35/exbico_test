@@ -3,6 +3,7 @@ using API.Core.DAL;
 using Common.Enum;
 using DTO.Verdict;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace SantaApp.Controllers
 {
@@ -30,6 +31,23 @@ namespace SantaApp.Controllers
                 Verdict = VerdictEnum.Bad
             };
             _appContext.Verdict.Add(dto);
+            _appContext.SaveChanges();
+            return "Ok";
+        }
+        
+        [HttpGet("fake")]
+        public string GenerateFakeValues()
+        {
+            for (var i = 0; i < 10000; i++)
+            {
+                _appContext.Verdict.Add(new VerdictModel
+                {
+                    Fio = i.ToString(),
+                    Age = i / 3 % 100,
+                    Verdict = (VerdictEnum)(i%2)
+                });
+            }
+            
             _appContext.SaveChanges();
             return "Ok";
         }
