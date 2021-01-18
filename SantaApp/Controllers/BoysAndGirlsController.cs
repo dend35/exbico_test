@@ -20,8 +20,8 @@ namespace SantaApp.Controllers
             return new VerdictDto();
         }
 
-        [HttpGet]
-        public void Test()
+        [HttpGet("test")]
+        public string Test()
         {
             var dto = new VerdictModel
             {
@@ -31,6 +31,7 @@ namespace SantaApp.Controllers
             };
             _appContext.Verdict.Add(dto);
             _appContext.SaveChanges();
+            return "Ok";
         }
     }
 }
